@@ -1,0 +1,9 @@
+<LifecycleConfiguration>
+    <Rule>
+        <ID>DeleteAfter30Days</ID>
+        <Status>Enabled</Status>
+        <Expiration>
+            <Days>30</Days>
+        </Expiration>
+    </Rule>
+</LifecycleConfiguration>
