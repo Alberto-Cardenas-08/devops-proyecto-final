@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Plantilla CloudFormation - EC2 + S3 para DevOps Project
+
+Resources:
+  DevOpsEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0e86e20dae9224db8   # Amazon Linux 2023 en us-east-1
+      IamInstanceProfile: LabInstanceProfile
+      Tags:
+        - Key: Name
+          Value: devops-ec2-cloudformation
+
+  DevOpsS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "devops-bucket-${AWS::AccountId}"
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Name
+          Value: devops-bucket
+
+Outputs:
+  EC2InstanceId:
+    Description: ID de la instancia EC2 creada
+    Value: !Ref DevOpsEC2Instance
+    Export:
+      Name: DevOps-EC2-InstanceId
+
+  S3BucketName:
+    Description: Nombre del bucket S3 creado
+    Value: !Ref DevOpsS3Bucket
+    Export:
+      Name: DevOps-S3-BucketName
